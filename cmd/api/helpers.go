@@ -70,7 +70,7 @@ func (app *application) readJSON(w http.ResponseWriter, r *http.Request, dst int
 		case errors.Is(err, io.EOF):
 			return errors.New("body must not be empty")
 		case errors.As(err, &invalidUnmarshalError):
-			panic("kkkkkkkkkkkkkkkkkkkk")
+			panic(err)
 		case strings.HasPrefix(err.Error(), "json: unkown field "):
 			fieldName := strings.TrimPrefix(err.Error(), "json: unkown field ")
 			return fmt.Errorf("body contains unkown key %s", fieldName)
