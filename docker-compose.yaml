@@ -1,20 +1,15 @@
 services:
-
   greenlight-db:
     image: postgres
     restart: always
+    
     volumes:
       - greenlight-volume:/var/lib/postgresql/data
     ports:
       - 5432:5432
     environment:
       POSTGRES_PASSWORD: example
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-
+      POSTGRES_DB: greenlight
 networks:
   greenlight-network:
     driver: bridge
