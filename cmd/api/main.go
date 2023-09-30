@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	"flag"
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -13,6 +12,7 @@ import (
 
 	"github.com/guths/greenlight-api/internal/data"
 	"github.com/guths/greenlight-api/internal/env"
+	"github.com/guths/greenlight-api/internal/jsonlog"
 	_ "github.com/lib/pq"
 )
 
@@ -31,7 +31,7 @@ type config struct {
 
 type application struct {
 	config config
-	logger *log.Logger
+	logger *jsonlog.Logger
 	models data.Models
 }
 
@@ -49,23 +49,24 @@ func main() {
 	dbDsn, _ := strconv.Unquote(os.Getenv("DB_DSN"))
 	cfg.db.dsn = dbDsn
 
-	logger := log.New(os.Stdout, "", log.Ldate|log.Ltime)
+	logger := jsonlog.New(os.Stdout, jsonlog.LevelInfo)
 
 	db, err := OpenDB(cfg)
 
 	if err != nil {
-		log.Fatal(err)
+		logger.PrintFatal(err, nil)
 	}
 
 	defer db.Close()
 
-	logger.Printf("database connection pool established")
+	logger.PrintInfo("database connection pool established", nil)
 
 	app := &application{
 		config: cfg,
 		logger: logger,
 		models: data.NewModels(db),
 	}
+
 	srv := &http.Server{
 		Addr:         fmt.Sprintf(":%d", cfg.port),
 		Handler:      app.routes(),
@@ -74,11 +75,14 @@ func main() {
 		WriteTimeout: 30 * time.Second,
 	}
 
-	logger.Printf("starting %s server on %s", cfg.env, srv.Addr)
+	logger.PrintInfo("starting server", map[string]string{
+		"addr": srv.Addr,
+		"env":  cfg.env,
+	})
 
 	err = srv.ListenAndServe()
 
-	logger.Fatal(err)
+	logger.PrintFatal(err, nil)
 }
 
 func OpenDB(cfg config) (*sql.DB, error) {
