@@ -6,6 +6,7 @@ import (
 	"crypto/sha256"
 	"database/sql"
 	"encoding/base32"
+	"fmt"
 	"time"
 
 	"github.com/guths/greenlight-api/internal/validator"
@@ -59,7 +60,6 @@ func ValidateTokenPlaintext(v *validator.Validator, tokenPlaintext string) {
 
 func (m *TokenModel) New(userId int64, ttl time.Duration, scope string) (*Token, error) {
 	token, err := generateToken(userId, ttl, scope)
-
 	if err != nil {
 		return nil, err
 	}
@@ -69,6 +69,7 @@ func (m *TokenModel) New(userId int64, ttl time.Duration, scope string) (*Token,
 	if err != nil {
 		return nil, err
 	}
+	fmt.Printf("%v", token)
 
 	return token, nil
 }
