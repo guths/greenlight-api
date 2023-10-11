@@ -135,4 +135,5 @@ func (app *application) activateUserHandler(w http.ResponseWriter, r *http.Reque
 	if err != nil {
 		app.serverErrorResponse(w, r, err)
 	}
+
 }

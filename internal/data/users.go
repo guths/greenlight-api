@@ -196,7 +196,7 @@ func (m *UserModel) GetForToken(tokenScope string, tokenPlainText string) (*User
 	`
 	args := []interface{}{
 		tokenHash[:],
-		tokenPlainText,
+		tokenScope,
 		time.Now(),
 	}
 

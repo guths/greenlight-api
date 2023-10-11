@@ -12,15 +12,16 @@ import (
 )
 
 const (
-	ScopeActivation = "activation"
+	ScopeActivation     = "activation"
+	ScopeAuthentication = "authentication"
 )
 
 type Token struct {
-	Plaintext string
-	Hash      []byte
-	UserID    int64
-	Expiry    time.Time
-	Scope     string
+	Plaintext string    `json:"token"`
+	Hash      []byte    `json:"-"`
+	UserID    int64     `json:"-"`
+	Expiry    time.Time `json:"expiracy"`
+	Scope     string    `json:"-"`
 }
 
 type TokenModel struct {
@@ -90,7 +91,7 @@ func (t *TokenModel) Insert(token *Token) error {
 func (t *TokenModel) DeleteAllForUser(scope string, userId int64) error {
 	query := `
 		DELETE FROM tokens
-		WHERE userID = $1
+		WHERE user_id = $1
 		AND scope = $2`
 
 	args := []interface{}{scope, userId}
