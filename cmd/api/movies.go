@@ -11,9 +11,9 @@ import (
 
 func (app *application) listMoviesHandler(w http.ResponseWriter, r *http.Request) {
 	var input struct {
-		Title   string
-		Genres  []string
-		Filters data.Filters
+		Title   string       `json:"title"`
+		Genres  []string     `json:"genres"`
+		Filters data.Filters `json:"filters"`
 	}
 
 	v := validator.New()
