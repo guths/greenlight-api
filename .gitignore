@@ -1,4 +1,6 @@
-.env
+.env*
+.envrc
+bin/
 .vscode
-.env.staging
-logs/*
+logs/*.envrc
+
