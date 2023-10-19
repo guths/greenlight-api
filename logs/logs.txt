@@ -1,6 +1,1 @@
-{"level":"INFO","time":"2023-10-18T13:26:01-03:00","message":"database connection pool established","Properties":null,"trace":""}
-{"level":"INFO","time":"2023-10-18T13:26:01-03:00","message":"starting server","Properties":{"addr":":4040","env":"development"},"trace":""}
-{"level":"INFO","time":"2023-10-18T13:26:15-03:00","message":"shutting own server","Properties":{"signal":"interrupt"},"trace":""}
-{"level":"INFO","time":"2023-10-18T13:26:15-03:00","message":"caught signal","Properties":{"signal":"interrupt"},"trace":""}
-{"level":"INFO","time":"2023-10-18T13:26:15-03:00","message":"completing background tasks","Properties":{"addr":":4040"},"trace":""}
-{"level":"INFO","time":"2023-10-18T13:26:15-03:00","message":"stopeed server","Properties":{"addr":":4040"},"trace":""}
+{"level":"FATAL","time":"2023-10-19T09:28:53-03:00","message":"pq: SSL is not enabled on the server","Properties":null,"trace":"goroutine 1 [running]:\nruntime/debug.Stack()\n\t/usr/local/go/src/runtime/debug/stack.go:24 +0x65\ngithub.com/guths/greenlight-api/internal/jsonlog.(*Logger).print(0xc00011d230, 0x2, {0x85b41e, 0x24}, 0x0)\n\t/home/jonathan.guths/projects/personal/greenlight-api/internal/jsonlog/jsonlog.go:95 +0x17d\ngithub.com/guths/greenlight-api/internal/jsonlog.(*Logger).PrintFatal(0xfa0?, {0x8e95e0?, 0xc000119540?}, 0x84ac03?)\n\t/home/jonathan.guths/projects/personal/greenlight-api/internal/jsonlog/jsonlog.go:72 +0x4b\nmain.main()\n\t/home/jonathan.guths/projects/personal/greenlight-api/cmd/api/main.go:90 +0x734\n"}
